@@ -1,0 +1,22 @@
+package com.tz.shwe.project_3;
+
+import android.view.View;
+
+/**
+ * Created by blo on 3/24/16.
+ */
+public class Shape extends View {
+    public void setShapeAlpha(float alpha) {
+        Sys
+    }
+    public float getShapeAlpha() {
+
+    }
+    public void removeShape() {
+
+    }
+
+    abstract ShapeType getShapeType() {
+
+    }
+}
