@@ -4,16 +4,12 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.view.View;
 
+import com.tz.shwe.project_3.ShapeType;
 /**
  * Created by blo on 3/24/16.
  */
-
-enum ShapeType {
-    Circle,
-    Rectangle
-}
 public abstract class Shape extends View {
-    Shape(Context context) {
+    protected Shape(Context context) {
         super(context);
     }
     protected void setShapeAlpha(float alpha) {
@@ -30,5 +26,5 @@ public abstract class Shape extends View {
     protected abstract ShapeType getShapeType();
 
     @Override
-    protected abstract void onDraw(Canvas canvas);
+    protected abstract void onDraw(Canvas cnv);
 }
