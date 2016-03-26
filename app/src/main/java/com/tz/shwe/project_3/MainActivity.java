@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
         final RelativeLayout sh_lyt = (RelativeLayout) findViewById(R.id.rltv_lyt);
 
-        sh_lst = new Vector(10);
+        sh_lst = new Vector();
         bt_rct = (Button) findViewById(R.id.btn_rct);
         bt_crc = (Button) findViewById(R.id.btn_crc);
         bt_cls = (Button) findViewById(R.id.btn_cls);
@@ -49,22 +49,22 @@ public class MainActivity extends AppCompatActivity {
         bt_rct.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //adjustShapeAlpha();
+                adjustShapeAlpha();
                 sh = sh_fact.getShape(cntx, "Rectangle");
                 sh_lst.add(sh);
                 sh_lyt.addView(sh);
-                txt_vw.setText("this works");
+                updateShapeCount();
             }
         });
 
         bt_crc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //adjustShapeAlpha();
+                adjustShapeAlpha();
                 sh = sh_fact.getShape(cntx, "Circle");
                 sh_lst.add(sh);
                 sh_lyt.addView(sh);
-                txt_vw.setText("this works");
+                updateShapeCount();
             }
         });
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 sh_lst.clear();
                 sh_lyt.removeAllViews();
-                txt_vw.setText("this works");
+                updateShapeCount();
             }
         });
     }
@@ -101,13 +101,27 @@ public class MainActivity extends AppCompatActivity {
     }
     void adjustShapeAlpha() {
         for (int i = 0; i < sh_lst.size(); i++) {
-            Shape tmp = (Shape) sh_lst.get(0);
-            if(tmp.getShapeAlpha() > 0.0f) {
-                tmp.setShapeAlpha(1);
+            Shape tmp = (Shape) sh_lst.get(i);
+            if (tmp.getShapeAlpha() > 0.0f) {
+                tmp.setShapeAlpha(tmp.getShapeAlpha() - 0.1f);
+            } else {
+                tmp.removeShape();
+                sh_lst.remove(i);
             }
-
         }
 
+    }
+    void updateShapeCount() {
+        int rct_cnt = 0, crc_cnt = 0;
+        for (int i = 0; i < sh_lst.size(); i++) {
+            Shape tmp = (Shape) sh_lst.get(i);
+            ShapeType sh_t = tmp.getShapeType();
+            if (sh_t == ShapeType.Rectangle)
+                rct_cnt++;
+            else if (sh_t == ShapeType.Circle)
+                crc_cnt ++;
+        }
+        txt_vw.setText(rct_cnt + " Rectangles, " + crc_cnt + " Circles.");
     }
 
 }

@@ -13,17 +13,17 @@ public class Circle extends Shape {
         super(cnxt);
     }
     protected void onDraw(Canvas cnv) {
-        x = (int) (Math.random() * getWidth() + 1);
-        y = (int) (Math.random() * getHeight() + 1);
-        r = (int) Math.sqrt(getWidth() * getHeight() / 50);
-        r = (int) (Math.random() * r + 50);
-        pnt = new Paint();
+        set_value();
         pnt.setColor(Color.rgb(x % 255, y % 255, r % 255));
+        if (x - r < sz)
+            x += r;
+        if (y - r < sz)
+            y += r;
         cnv.drawCircle(x, y, r, pnt);
 
     }
     protected ShapeType getShapeType() {
-        return null;
+        return ShapeType.Circle;
     }
 }
 

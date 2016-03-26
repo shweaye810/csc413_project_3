@@ -13,15 +13,15 @@ public class Rectangle extends Shape {
         super(cnxt);
     }
     protected void onDraw(Canvas cnv) {
-        x = (int) (Math.random() * getWidth() + 1);
-        y = (int) (Math.random() * getHeight() + 1);
-        r = (int) Math.sqrt(getWidth() * getHeight() / 50);
-        r = (int) (Math.random() * r + 50);
-        pnt = new Paint();
+        set_value();
         pnt.setColor(Color.rgb(x % 255, y % 255, r % 255));
-        cnv.drawRect(x,y,x+r,y+r,pnt);
+        if (x < sz)
+            x += sz;
+        if (y < sz)
+            y += sz;
+        cnv.drawRect(x, y, x + r, y + r,pnt);
     }
     protected ShapeType getShapeType() {
-        return null;
+        return ShapeType.Rectangle;
     }
 }
