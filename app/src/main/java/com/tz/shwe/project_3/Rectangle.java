@@ -13,12 +13,8 @@ public class Rectangle extends Shape {
         super(cnxt);
     }
     protected void onDraw(Canvas cnv) {
-        set_value();
-        pnt.setColor(Color.rgb(x % 255, y % 255, r % 255));
-        if (x < sz)
-            x += sz;
-        if (y < sz)
-            y += sz;
+        pnt.setColor(Color.rgb((int) (x) % 255,(int) (y) % 255,
+                (int) (r) % 255));
         cnv.drawRect(x, y, x + r, y + r,pnt);
     }
     protected ShapeType getShapeType() {

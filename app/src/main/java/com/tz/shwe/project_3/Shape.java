@@ -10,14 +10,21 @@ import com.tz.shwe.project_3.ShapeType;
  * Created by blo on 3/24/16.
  */
 public abstract class Shape extends View {
-    protected int x, y, r, t;
+    protected float x, y, r, a, rad, width, height;
     final int sz;
     protected Paint pnt;
 
     protected Shape(Context context) {
         super(context);
         pnt = new Paint();
-        sz = 50;
+        sz = 100;
+        rad = MainActivity.div;
+        x = (float) Math.random();
+        y = (float) Math.random();
+        r = (float) Math.random() / rad;
+        width = MainActivity.width - sz;
+        height = MainActivity.height - sz;
+        set_value();
     }
     protected void setShapeAlpha(float alpha) {
         this.setAlpha(alpha);
@@ -36,13 +43,9 @@ public abstract class Shape extends View {
     protected abstract void onDraw(Canvas cnv);
 
     protected void set_value() {
-        t = (int) Math.sqrt(getWidth() * getHeight() / 50);
-        x = (int) (Math.random() * getWidth());
-        y = (int) (Math.random() * getHeight());
-        r = (int) (Math.random() * t + 50);
-        if (x + r > getWidth() - sz)
-            x = x - r - sz;
-        if (y > getWidth() - sz)
-            y = y - r - sz;
+        a = (float) Math.sqrt(width * height / 50);
+        x = (x * width + sz);
+        y = (y * height + sz);
+        r = (r * a + MainActivity.min);
     }
 }

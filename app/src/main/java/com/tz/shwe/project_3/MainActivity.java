@@ -2,30 +2,41 @@ package com.tz.shwe.project_3;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.util.Vector;
 
 public class MainActivity extends AppCompatActivity {
     Vector sh_lst;
     Button bt_rct, bt_crc, bt_cls;
+    ToggleButton tb_xtr;
+
     Shape sh;
     ShapeFactory sh_fact;
     Context cntx;
     Canvas cnv;
     TextView txt_vw;
+    public static float width, height, div, min;
+    Display dsp;
+    RelativeLayout sh_lyt;
+    String mode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +45,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        final RelativeLayout sh_lyt = (RelativeLayout) findViewById(R.id.rltv_lyt);
+        sh_lyt = (RelativeLayout) findViewById(R.id.rltv_lyt);
+        dsp = getWindowManager().getDefaultDisplay();
+        Point sz = new Point();
+        dsp.getSize(sz);
+        div = 3;
+        min = 30;
+        // width = sz.x;
+        // height = sz.y;
 
         sh_lst = new Vector();
         bt_rct = (Button) findViewById(R.id.btn_rct);
         bt_crc = (Button) findViewById(R.id.btn_crc);
         bt_cls = (Button) findViewById(R.id.btn_cls);
+        tb_xtr = (ToggleButton) findViewById(R.id.btn_xtr);
 
 
         sh_fact = new ShapeFactory();
@@ -76,6 +95,31 @@ public class MainActivity extends AppCompatActivity {
                 updateShapeCount();
             }
         });
+
+        tb_xtr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                Shape tmp;
+                if (isChecked) {
+                    div = 1;
+                    min = 100;
+                } else {
+                    div = 3;
+                    min = 30;
+                }
+            }
+        });
+
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        updateSizeInfo();
+    }
+    private void updateSizeInfo() {
+        width = sh_lyt.getWidth();
+        height = sh_lyt.getHeight();
     }
 
     @Override

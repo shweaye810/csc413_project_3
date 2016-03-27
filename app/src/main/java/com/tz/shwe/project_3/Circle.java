@@ -13,14 +13,9 @@ public class Circle extends Shape {
         super(cnxt);
     }
     protected void onDraw(Canvas cnv) {
-        set_value();
-        pnt.setColor(Color.rgb(x % 255, y % 255, r % 255));
-        if (x - r < sz)
-            x += r;
-        if (y - r < sz)
-            y += r;
+        pnt.setColor(Color.rgb((int) (x) % 255,(int) (y) % 255,
+                               (int) (r) % 255));
         cnv.drawCircle(x, y, r, pnt);
-
     }
     protected ShapeType getShapeType() {
         return ShapeType.Circle;

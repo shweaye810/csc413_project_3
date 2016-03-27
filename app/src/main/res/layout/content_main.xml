@@ -56,14 +56,23 @@
         android:layout_toLeftOf="@+id/btn_crc"
         android:layout_above="@+id/btn_rct" />
 
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btn_xtr"
+        android:layout_above="@+id/btn_crc"
+        android:layout_centerHorizontal="true"
+        android:width="100dp" />
+
     <RelativeLayout
         android:id="@+id/rltv_lyt"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/btn_rct"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_above="@+id/btn_xtr"
         android:layout_below="@+id/textView">
+
     </RelativeLayout>
 
 </RelativeLayout>
