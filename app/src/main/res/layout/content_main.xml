@@ -59,10 +59,12 @@
     <ToggleButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/btn_xtr"
+        android:id="@+id/tb_mod"
         android:layout_above="@+id/btn_crc"
         android:layout_centerHorizontal="true"
-        android:width="100dp" />
+        android:width="100dp"
+        android:textOff="Enlarge:\nOFF"
+        android:textOn="Enlarge:\nOn" />
 
     <RelativeLayout
         android:id="@+id/rltv_lyt"
@@ -70,9 +72,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/btn_xtr"
-        android:layout_below="@+id/textView">
+        android:layout_below="@+id/textView"
+        android:layout_above="@+id/tb_mod">
 
     </RelativeLayout>
+
+    <ToggleButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New ToggleButton"
+        android:id="@+id/tb_grv"
+        android:layout_alignTop="@+id/tb_mod"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:width="100dp"
+        android:textOn="gravity:\nOn"
+        android:textOff="gravity:\nOff" />
 
 </RelativeLayout>

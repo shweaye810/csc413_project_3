@@ -18,15 +18,15 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import java.util.Vector;
+import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity {
     Vector sh_lst;
     Button bt_rct, bt_crc, bt_cls;
-    ToggleButton tb_xtr;
+    ToggleButton tb_mod, tb_grv;
 
     Shape sh;
     ShapeFactory sh_fact;
@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     public static float width, height, div, min;
     RelativeLayout sh_lyt;
     String mode;
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         bt_rct = (Button) findViewById(R.id.btn_rct);
         bt_crc = (Button) findViewById(R.id.btn_crc);
         bt_cls = (Button) findViewById(R.id.btn_cls);
-        tb_xtr = (ToggleButton) findViewById(R.id.btn_xtr);
+        tb_mod = (ToggleButton) findViewById(R.id.tb_mod);
+        tb_grv = (ToggleButton) findViewById(R.id.tb_grv);
 
 
         sh_fact = new ShapeFactory();
@@ -91,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        tb_xtr.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        tb_mod.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 Shape tmp;
@@ -108,6 +110,60 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        tb_grv.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    gravity_start();
+                    origin_loc_stop();
+                } else {
+                    gravity_stop();
+                    origin_loc_start();
+                }
+            }
+        });
+
+    }
+
+    Boolean grv_started = false, org_started = false;
+    private Runnable grv_run = new Runnable() {
+        @Override
+        public void run() {
+            enable_gravity();
+            if (grv_started) {
+                gravity_start();
+            }
+        }
+    };
+
+    public void gravity_stop() {
+        grv_started = false;
+        handler.removeCallbacks(grv_run);
+    }
+
+    public void gravity_start() {
+        grv_started = true;
+        handler.postDelayed(grv_run, 500);
+    }
+
+    private Runnable itm_ret = new Runnable() {
+        @Override
+        public void run() {
+            disable_gravity();
+            if (org_started) {
+                origin_loc_start();
+            }
+        }
+    };
+
+    public void origin_loc_stop() {
+        org_started = false;
+        handler.removeCallbacks(itm_ret);
+    }
+
+    public void origin_loc_start() {
+        org_started = true;
+        handler.postDelayed(itm_ret, 500);
     }
 
     @Override
@@ -161,9 +217,21 @@ public class MainActivity extends AppCompatActivity {
             if (sh_t == ShapeType.Rectangle)
                 rct_cnt++;
             else if (sh_t == ShapeType.Circle)
-                crc_cnt ++;
+                crc_cnt++;
         }
-        txt_vw.setText(rct_cnt + " Rectangles, " + crc_cnt + " Circles. Mode: " + mode);
+        txt_vw.setText(rct_cnt + " Rectangles, " + crc_cnt + " Circles.");
+    }
+    void enable_gravity() {
+        for (int i = 0; i < sh_lst.size(); i++) {
+            Shape tmp = (Shape) sh_lst.get(i);
+            tmp.add_gravity();
+        }
+    }
+    void disable_gravity() {
+        for (int i = 0; i < sh_lst.size(); i++) {
+            Shape tmp = (Shape) sh_lst.get(i);
+            tmp.remove_gravity();
+        }
     }
 
 }

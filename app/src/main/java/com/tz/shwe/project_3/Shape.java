@@ -2,6 +2,7 @@ package com.tz.shwe.project_3;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.View;
 
@@ -10,7 +11,7 @@ import com.tz.shwe.project_3.ShapeType;
  * Created by blo on 3/24/16.
  */
 public abstract class Shape extends View {
-    protected float x, y, r, a, rad, width, height;
+    protected float x, y, r, a, rad, width, height, o_y, v;
     final int sz;
     protected Paint pnt;
 
@@ -25,6 +26,7 @@ public abstract class Shape extends View {
         width = MainActivity.width - sz;
         height = MainActivity.height - sz;
         set_value();
+        v = 10;
     }
     protected void setShapeAlpha(float alpha) {
         this.setAlpha(alpha);
@@ -47,5 +49,21 @@ public abstract class Shape extends View {
         x = (x * width + sz);
         y = (y * height + sz);
         r = (r * a + MainActivity.min);
+        pnt.setColor(Color.rgb((int) (x) % 255, (int) (y) % 255, (int) (r) % 255));
+        o_y = y;
+    }
+    protected void add_gravity() {
+        if (y + r < height - 25) {
+            y += v;
+            v += 10;
+            invalidate();
+        }
+    }
+    protected void remove_gravity() {
+        if (y > o_y) {
+            y -= v;
+            v -= 10;
+            invalidate();
+        }
     }
 }
