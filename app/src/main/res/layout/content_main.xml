@@ -60,11 +60,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/tb_mod"
-        android:layout_above="@+id/btn_crc"
-        android:layout_centerHorizontal="true"
-        android:width="100dp"
-        android:textOff="Enlarge:\nOFF"
-        android:textOn="Enlarge:\nOn" />
+        android:width="150dp"
+        android:textOff="Enlarge:OFF"
+        android:textOn="Enlarge:On"
+        android:layout_above="@+id/btn_rct"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <RelativeLayout
         android:id="@+id/rltv_lyt"
@@ -85,8 +86,8 @@
         android:layout_alignTop="@+id/tb_mod"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:width="100dp"
-        android:textOn="gravity:\nOn"
-        android:textOff="gravity:\nOff" />
+        android:width="150dp"
+        android:textOn="gravity:On"
+        android:textOff="gravity:Off" />
 
 </RelativeLayout>
