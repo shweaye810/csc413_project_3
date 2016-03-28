@@ -53,9 +53,11 @@ public abstract class Shape extends View {
         o_y = y;
     }
     protected void add_gravity() {
-        if (y + r < height - 25) {
+        if (y < height) {
             y += v;
             v += 10;
+            if (y > height)
+                y = height;
             invalidate();
         }
     }
