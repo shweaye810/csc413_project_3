@@ -31,10 +31,8 @@ public class MainActivity extends AppCompatActivity {
     Shape sh;
     ShapeFactory sh_fact;
     Context cntx;
-    Canvas cnv;
     TextView txt_vw;
     public static float width, height, div, min;
-    Display dsp;
     RelativeLayout sh_lyt;
     String mode;
 
@@ -46,13 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         sh_lyt = (RelativeLayout) findViewById(R.id.rltv_lyt);
-        dsp = getWindowManager().getDefaultDisplay();
-        Point sz = new Point();
-        dsp.getSize(sz);
         div = 3;
         min = 30;
-        // width = sz.x;
-        // height = sz.y;
 
         sh_lst = new Vector();
         bt_rct = (Button) findViewById(R.id.btn_rct);
@@ -64,6 +57,8 @@ public class MainActivity extends AppCompatActivity {
         sh_fact = new ShapeFactory();
         cntx = this.getApplicationContext();
         txt_vw = (TextView) findViewById(R.id.textView);
+
+        mode = "normal";
 
         bt_rct.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,10 +98,13 @@ public class MainActivity extends AppCompatActivity {
                 if (isChecked) {
                     div = 1;
                     min = 100;
+                    mode = "enlarge";
                 } else {
                     div = 3;
                     min = 30;
+                    mode = "normal";
                 }
+                updateShapeCount();
             }
         });
 
@@ -165,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             else if (sh_t == ShapeType.Circle)
                 crc_cnt ++;
         }
-        txt_vw.setText(rct_cnt + " Rectangles, " + crc_cnt + " Circles.");
+        txt_vw.setText(rct_cnt + " Rectangles, " + crc_cnt + " Circles. Mode: " + mode);
     }
 
 }

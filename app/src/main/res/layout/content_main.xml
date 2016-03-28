@@ -15,7 +15,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0 Rectangle, 0 Circle"
+        android:text="Welcome!"
         android:id="@+id/textView"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
