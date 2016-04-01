@@ -200,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
     void adjustShapeAlpha() {
         for (int i = 0; i < sh_lst.size(); i++) {
             Shape tmp = (Shape) sh_lst.get(i);
-            if (tmp.getShapeAlpha() > 0.0f) {
+            if (tmp.getShapeAlpha() > 0.1f) {
                 tmp.setShapeAlpha(tmp.getShapeAlpha() - 0.1f);
             } else {
                 tmp.removeShape();

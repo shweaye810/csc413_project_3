@@ -18,13 +18,13 @@ public abstract class Shape extends View {
     protected Shape(Context context) {
         super(context);
         pnt = new Paint();
-        sz = 100;
+        sz = 50;
         rad = MainActivity.div;
         x = (float) Math.random();
         y = (float) Math.random();
         r = (float) Math.random() / rad;
-        width = MainActivity.width - sz;
-        height = MainActivity.height - sz;
+        width = MainActivity.width - sz * 2;
+        height = MainActivity.height - sz * 2;
         set_value();
         v = 10;
     }
@@ -56,8 +56,8 @@ public abstract class Shape extends View {
         if (y < height) {
             y += v;
             v += 10;
-            if (y > height)
-                y = height;
+            if (y + r > height)
+                y = height - (r * 9 / 10);
             invalidate();
         }
     }
